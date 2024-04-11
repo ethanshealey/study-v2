@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+$background: #1c1b22;
+$foreground: #24232b;
+$accent: #bb86fc;
+$text: #EEEEEE;
+$font: 'Nunito Sans', sans-serif;
+$red: #a83d3d;
+
+body, html {
+  padding: 0;
+  margin: 0 !important;
+  background-color: $background;
+  color: $text;
+  font-family: $font;
+  overflow-x: hidden;
+}
+
+header {
+  width: 100vw;
+  background-color: $background;
+  border-bottom: 2px solid $foreground;
+  position: fixed;
+  padding: 1px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  #header-left {
+    margin-left: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    h1 {
+      font-weight: 900;
+    }
+    p {
+      border-left: thin solid $text;
+      margin-left: 7px;
+      padding-left: 7px;
+      height: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 50%;
+    }
+  }
+  #header-right {
+    margin-right: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+  }
+}
+
+#search-box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  #search-box-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $foreground;
+    height: 35px;
+    width: 35px;
+    border-radius: 35px 0 0 35px;
+    color: $text;
+    font-size: 12px;
+    cursor: pointer;
+    svg {
+      margin-top: -2px;
+    }
+  }
+  #search-box-input {
+    background-color: $foreground;
+    outline: none;
+    border: none;
+    border-radius: 0 35px 35px 0;
+    color: $text;
+    font-family: $font;
+    width: calc(100% - 35px);
+  }
+}
+
+#user-avatar-menu {
+  margin-left: 15px;
+  #user-avatar {
+    width: 30px;
+    height: 30px;
+    background-color: $text;
+    border-radius: 100%;
+    border: 2px solid $text;
+    cursor: pointer;
+ }
+ #menu-dropdown-wrapper {
+  position: absolute;
+  width: 250px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #menu-dropdown {
+    background-color: $foreground;
+    width: 80%;
+    margin-top: 12px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    hr {
+      width: 100%;
+      border: thin solid $text;
+      outline: none;
+      background-color: transparent;
+    }
+    button {
+      background-color: transparent;
+      border: none;
+      color: $text;
+      font-family: $font;
+      padding: 2.5px;
+      padding-left: 10px;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 600;
+      font-size: 16px;
+      z-index: 56;
+      transition: .1s;
+      opacity: 75%;
+      svg {
+        margin-bottom: -2px;
+      }
+      &:hover {
+        background-color: $background;
+        border-radius: 3px;
+      }
+    }
+    #sign-out-btn {
+      color: #a83d3d;
+    }
+    &:before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background-color: $foreground;
+      transform: rotate(45deg);
+      position: absolute;
+      margin-top: -12px;
+      right: 36px;
+    }
+  }
+ }
+}
+
+#login-btn {
+  width: 75px;
+  color: $text;
+  background-color: $accent;
+  outline: none;
+  border: none;
+  height: 35px;
+  border-radius: 35px;
+  font-family: $font;
+  font-weight: 700;
+  margin-left: 15px;
+  cursor: pointer;
+  transition: .5s;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  &:hover {
+    opacity: 80%;
+  }
+}
+
+main {
+  height: 150vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: c;
+  #content {
+    margin-top: 50px;
+    padding: 25px;
+    width: 90vw;
+    #sets {
+      display: flex;
+      flex-direction: column;
+      h1 {
+        font-size: 45px;
+        font-weight: 900;
+      }
+    }
+  }
+}
+
+#login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  #login {
+    margin-top: -25px;
+    width: 50vw;
+    .title {
+      margin-left: 10px;
+      font-weight: 900;
+    }
+    .title-sub {
+      margin-left: 10px;
+      font-weight: 100;
+      opacity: 50%;
+      margin-top: -25px;
+    }
+    fieldset {
+      padding: 0;
+      border: none;
+      outline: none;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 25px;
+      label {
+        font-weight: 800;
+        margin-left: 10px;
+      }
+      input {
+        background-color: $foreground;
+        outline: none;
+        border: none;
+        border-radius: 35px;
+        color: $text;
+        font-family: $font;
+        padding: 8px;
+      }
+    }
+    button {
+      width: 100%;
+      background-color: $accent;
+      outline: none;
+      border: none;
+      color: $text;
+      padding: 8px;
+      border-radius: 35px;
+      font-family: $font;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .sub {
+      margin-top: 8px;
+      font-size: 13px;
+      text-align: center;
+      opacity: 75%;
+      a {
+        color: $accent;
+      }
+    }
+  }
+}
+
+#set-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: -30px;
+  padding: 0;
+  .study-set {
+    background-color: $foreground;
+    border-radius: 10px;
+    width: calc(25% - 60px);
+    min-width: 150px;
+    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: .25s;
+    cursor: pointer;
+    h3 {
+      font-weight: 800;
+    }
+    .term-count {
+      background-color: $background;
+      width: 55px;
+      padding: 5px;
+      border-radius: 25px;
+      text-align: center;
+      font-size: 12px;
+      margin-top: -12px;
+    }
+    .created-by {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        background-color: $text;
+        border-radius: 100%;
+        margin-right: 5px;
+        margin-top: 1px;
+        border: 2px solid $text;
+      }
+    }
+    &:hover {
+      opacity: 80%;
+    }
+  }
+}
