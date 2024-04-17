@@ -1,10 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { auth, collection, db, getDocs, onAuthStateChanged, query, where } from '@/firebase'
 import AuthContext from '@/context/AuthContext'
+import { MUST_BE_LOGGED_IN_PATHS } from "@/constants/Constants"
 
 const Wrapper = ({ children }: any) => {
 
+    const pathname = usePathname()
+    const router = useRouter()
     const [ user, setUser] = useState<any>()
     const [ isLoading, setIsLoading ] = useState<boolean>(true)
 
@@ -21,6 +25,7 @@ const Wrapper = ({ children }: any) => {
               })
             }
             else {
+                if(MUST_BE_LOGGED_IN_PATHS.includes(pathname)) router.push('/')
                 setUser(undefined)
                 setIsLoading(false)
             }
@@ -30,7 +35,7 @@ const Wrapper = ({ children }: any) => {
 
     return (
         <AuthContext.Provider value={user}>
-            { children }
+            { isLoading ? <></> : children }
         </AuthContext.Provider>
     )
 }

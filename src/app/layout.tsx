@@ -1,6 +1,8 @@
 import './globals.scss'
+import './spinner.scss'
 import type { Metadata } from 'next'
 import Wrapper from '@/Wrapper'
+import { Toaster } from 'react-hot-toast'
 
 
 export const metadata: Metadata = {
@@ -18,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Wrapper>
+          <Toaster position="top-center" />
           { children }
         </Wrapper>
       </body>

@@ -1,26 +1,35 @@
 import { collection, db, query, getDocs } from "@/firebase";
-import { or, where } from "firebase/firestore";
+import { and, or, where } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
 
     const url = new URL(request.url)
     const email = url.searchParams.get('email') ?? ''
+    const userOnly = url.searchParams.get('userOnly') ?? ''
+    const id = url.searchParams.get('id') ?? ''
 
-    console.log(email)
+    let q
 
-    const q = query(collection(db, 'StudySet'), or(
-        where('public', '==', true), 
-        where('createdByEmail', '==', email)
-    ))
+    if(id) 
+        q = query(collection(db, "StudySet"), 
+            and(
+                where('__name__', '==', id), 
+                or(
+                    where('public', '==', true), 
+                    where('createdByEmail', '==', email)
+                )
+            ))
+    else if(userOnly) 
+        q = query(collection(db, 'StudySet'), where('createdByEmail', '==', email))
+    else
+        q = query(collection(db, 'StudySet'), or(
+            where('public', '==', true), 
+            where('createdByEmail', '==', email)
+        ))
 
-    // getDocs(q).then((qs: any) => {
-    //   const sets = qs.docs.map((item: any) => { return { ...item.data(), id: item.id } })
-    //   return NextResponse.json({ sets: sets }, { status: 200 })
-    // })
-
-    const qs = await getDocs(q)
-    const sets = qs.docs.map((item: any) => { return { ...item.data(), id: item.id } })
-    return NextResponse.json([ ...sets ], { status: 200 })
+        const qs = await getDocs(q)
+        const sets = qs.docs.map((item: any) => { return { ...item.data(), id: item.id } })
+        return NextResponse.json([ ...sets ], { status: 200 })
 
 }

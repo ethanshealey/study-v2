@@ -5,7 +5,8 @@ type StudySet = {
     title: string,
     createdBy: string,
     createdByEmail: string,
-    items: Question[]
+    items: Question[],
+    autofillOptions: boolean
 }
 
 export default StudySet
