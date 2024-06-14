@@ -1,0 +1,31 @@
+@media only screen and (max-width: 910px) {
+    header {
+        #header-left {
+            p {
+                display: none !important;
+            }
+        }
+        #header-right {
+            justify-content: flex-end !important;
+            #search-box {
+                display: none !important;
+            }
+        }
+    }
+    #study-type-switch, .current-card, .progress, .controls, #quiz-options {
+        width: 90vw !important;
+    }
+    #quiz-question {
+        width: 83vw !important;
+    }
+    #single-choice, #multi-choice {
+        width: 100%;
+    }
+    #options {
+        width: 100% !important;
+    }
+    .option-btn {
+        flex-basis: 100% !important;
+    }
+    
+}

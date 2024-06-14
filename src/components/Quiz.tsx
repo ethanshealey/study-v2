@@ -1,11 +1,16 @@
 import Option from '@/types/Option'
 import StudySet from '@/types/StudySet'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MultipleChoiceOptions from './MultipleChoiceOptions'
 import SingleChoiceOptions from './SingleChoiceOptions'
 import Question from '@/types/Question'
 import Confetti from 'react-confetti'
 import { useWindowSize } from 'usehooks-ts'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import CodeBlock from './CodeBlock'
+import getThreeRandomOptions from '@/helpers/getThreeRandomOptions'
+import shuffle from '@/helpers/shuffle'
 
 type QuizType = {
   content: StudySet | undefined,
@@ -22,6 +27,21 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
   const [ isDone, setIsDone ] = useState<boolean>(false)
   const [ showResults, setShowResults ] = useState<boolean>(false)
   const [ showConfetti, setShowConfetti ] = useState<boolean>(false)
+  const [ autofilledOptions, setAutofilledOptions ] = useState<Option[][]>([])
+
+  useEffect(() => {
+    if(content?.autofillOptions) {
+      const all_options: Option[] = content.items.map((i: Question) => i.options).flat()
+      for(let i = 0; i < content.items.length; i++) {
+        const correct_answer = content?.items[i]?.options[0]
+        correct_answer.isCorrect = true
+        let answers: Option[] = [ correct_answer ]
+        answers.push(...getThreeRandomOptions(all_options, correct_answer))
+        console.log(answers)
+        autofilledOptions.push(shuffle(answers))
+      }
+    }
+  }, [])
   
   const getCurrentQuestion = () => content?.items[questionIndex]
 
@@ -94,12 +114,6 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
 
         showResults ? (
           <div id="quiz-result">
-            {/* {
-              showConfetti && <Confetti
-                width={width}
-                height={height}
-              />
-            } */}
             <Confetti
               width={width}
               height={height}
@@ -112,13 +126,21 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
         ) : (
           <>
             <div id="quiz-question">
-              <h1>{ getCurrentQuestion()?.question }</h1>
+              <Markdown
+                  children={getCurrentQuestion()?.question}
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code(props) {
+                      return <CodeBlock children={props.children} className={props.className} node={props.node} />
+                    }
+                  }}
+                />
             </div>
             <div id="quiz-options">
               {
                 isMultiOptionQuestion() ? 
-                  (<MultipleChoiceOptions options={getCurrentQuestion()?.options} onSubmitAnswer={handleSubmit} isCorrect={isCorrect} showCorrectAnswer={showCorrectAnswer} goToNextQuestion={goToNextQuestion} isDone={isDone} />) : 
-                  (<SingleChoiceOptions options={getCurrentQuestion()?.options} onSubmitAnswer={handleSubmit} isCorrect={isCorrect} showCorrectAnswer={showCorrectAnswer} goToNextQuestion={goToNextQuestion} isDone={isDone} />)
+                  (<MultipleChoiceOptions options={content?.autofillOptions ? autofilledOptions[questionIndex] : getCurrentQuestion()?.options} onSubmitAnswer={handleSubmit} isCorrect={isCorrect} showCorrectAnswer={showCorrectAnswer} goToNextQuestion={goToNextQuestion} isDone={isDone} />) : 
+                  (<SingleChoiceOptions options={content?.autofillOptions ? autofilledOptions[questionIndex] : getCurrentQuestion()?.options} onSubmitAnswer={handleSubmit} isCorrect={isCorrect} showCorrectAnswer={showCorrectAnswer} goToNextQuestion={goToNextQuestion} isDone={isDone} />)
               }
             </div>
           </>

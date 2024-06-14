@@ -3,8 +3,10 @@ import Option from "@/types/Option"
 import { FaTrashAlt } from "react-icons/fa";
 import { RiCheckboxBlankCircleLine, RiCheckboxCircleFill  } from "react-icons/ri";
 import { Tooltip } from 'react-tooltip'
+import Question from '@/types/Question';
 
 type OptionInputType = {
+    question: Question,
     option: Option,
     idx: number,
     handleOptionContentChange: Function,
@@ -14,7 +16,7 @@ type OptionInputType = {
     autofillOptions: boolean
 }
 
-const OptionInput = ({ option, idx, handleOptionContentChange, deleteOption, canDelete, toggleCorrect, autofillOptions }: OptionInputType) => {
+const OptionInput = ({ question, option, idx, handleOptionContentChange, deleteOption, canDelete, toggleCorrect, autofillOptions }: OptionInputType) => {
 
   const handleCorrectToggle = (e: any) => {
     e.preventDefault()
@@ -28,13 +30,13 @@ const OptionInput = ({ option, idx, handleOptionContentChange, deleteOption, can
 
   return (
     <div className="option">
-        <input className={`option-input ${ autofillOptions ? 'hide-options' : '' }`} placeholder='Enter an option...' value={option.content} key={`option-input-${idx}`} onChange={(e) => handleOptionContentChange(e.target.value, idx)} />
+        <input className={`option-input ${ autofillOptions ? 'hide-options' : '' }`} placeholder='Enter an option...' value={question?.options[idx]?.content} key={`option-input-${idx}`} onChange={(e) => handleOptionContentChange(e.target.value, idx)} />
         { !autofillOptions && (
           <div className='option-controls'>
               <Tooltip anchorSelect=".is-correct-tooltip" place="top">
                   Check this field to mark this as a correct answer
               </Tooltip>
-              <button className='option-controls--btn' onClick={handleCorrectToggle}><a className="is-correct-tooltip" data-tooltip-delay-show="1000">{ option.isCorrect ? <RiCheckboxCircleFill /> : <RiCheckboxBlankCircleLine /> }</a></button>
+              <button className='option-controls--btn' onClick={handleCorrectToggle}><span className="is-correct-tooltip" data-tooltip-delay-show={1000}>{ question?.options[idx]?.isCorrect ? <RiCheckboxCircleFill /> : <RiCheckboxBlankCircleLine /> }</span></button>
               <button className='option-controls--btn delete' onClick={handleDeleteOption} disabled={canDelete()}><FaTrashAlt /></button>
           </div>
         )}

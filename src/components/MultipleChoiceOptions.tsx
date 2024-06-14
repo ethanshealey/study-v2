@@ -13,6 +13,10 @@ type MultipleChoiceOptionsType = {
 const MultipleChoiceOptions = ({ options, onSubmitAnswer, isCorrect, showCorrectAnswer, goToNextQuestion, isDone }: MultipleChoiceOptionsType) => {
     const [ picked, setPicked ] = useState<number[]>([])
 
+    useEffect(() => {
+        setPicked([])
+    }, [options])
+
     const pickOption = (idx: number) => {
         if(picked.includes(idx))  setPicked(p => [ ...p.filter((v: number, i: number) => v !== idx) ])
         else setPicked(p => [ ...p, idx ])

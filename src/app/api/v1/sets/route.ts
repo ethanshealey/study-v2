@@ -28,8 +28,8 @@ export async function GET(request: NextRequest) {
             where('createdByEmail', '==', email)
         ))
 
-        const qs = await getDocs(q)
-        const sets = qs.docs.map((item: any) => { return { ...item.data(), id: item.id } })
-        return NextResponse.json([ ...sets ], { status: 200 })
+    const qs = await getDocs(q)
+    const sets = qs.docs.map((item: any) => { return { ...item.data(), id: item.id } })
+    return NextResponse.json([ ...sets ], { status: 200 })
 
 }

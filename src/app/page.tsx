@@ -17,8 +17,8 @@ export default function Home() {
   const [ studySets, setStudySets ] = useState<StudySet[]>([])
 
   useEffect(() => {
+    loadStudySets()
     if(user) {
-      loadStudySets()
       loadUserOnlyStudySets()
     }
   }, [user])

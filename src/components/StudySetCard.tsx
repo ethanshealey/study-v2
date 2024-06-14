@@ -11,7 +11,6 @@ const StudySetCard = ({ set }: StudySetCardType) => {
     const router = useRouter()
 
     const openStudySet = () => {
-        console.log(set)
         router.push(`/set/${set.id}?type=cards`)
     }
 

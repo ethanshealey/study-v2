@@ -8,9 +8,14 @@ import { RiCheckboxBlankCircleLine, RiCheckboxCircleFill  } from "react-icons/ri
 import { toast } from 'react-hot-toast'
 import toastTheme from '@/helpers/toastTheme'
 import Option from '@/types/Option'
+import { addDoc } from 'firebase/firestore'
+import { auth } from '@/firebase'
+import { useRouter } from 'next/navigation'
+import sleep from '@/helpers/sleep'
 
 const page = () => {
 
+    const router = useRouter()
     const user: any = useContext(AuthContext)
     const [ title, setTitle ] = useState<string>('')
     const [ questions, setQuestions ] = useState<Question[]>([])
@@ -29,13 +34,20 @@ const page = () => {
         setQuestions((_: any) => [ ...tempQuestions ])
     } 
 
+    const handleDeleteQuestionCard = (idx: number) => {
+        if(idx === 0 && questions.length === 1) return
+
+        let tempQuestions: Question[] = [ ...questions ]
+        tempQuestions = tempQuestions.filter((_: any, i: number) => i !== idx)
+        setQuestions((_: any) => [ ...tempQuestions ])
+    }
+
     const addQuestion = () => {
         setQuestions((p: Question[]) => [ ...p, { question: '', options: [] } ])
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
-        console.log(title, questions, autofillOptions)
 
         // Validate title is given
         if(!title) {
@@ -47,6 +59,20 @@ const page = () => {
         if(questions.map((q: Question) => [ ...q.options.map((o: Option) => o.content) ]).flat().some((c: string) => !c)) {
             return toast.error("One or more options dont have value!", toastTheme)
         }
+
+        const res = await fetch('/api/v1/sets/add', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                title: title,
+                questions: questions,
+                isPrivate: isPrivate,
+                autofillOptions: autofillOptions,
+                user: { ...auth.currentUser, username: user.username }
+            })
+        })
+        const data = await res.json()
+        router.push(`/set/${data.id}`)
     }
         
     return (
@@ -66,7 +92,7 @@ const page = () => {
                         </div>
                         {
                             questions.map((question: Question, idx: number) => (
-                                <AddQuestionCard key={`add-question-card-${idx}`} question={question} idx={idx} onChange={handleQuestionCardChange} autofillOptions={autofillOptions} />
+                                <AddQuestionCard key={`add-question-card-${idx}`} question={question} idx={idx} onChange={handleQuestionCardChange} autofillOptions={autofillOptions} handleDeleteQuestionCard={handleDeleteQuestionCard} />
                             ))
                         }
                         <div id="add-question-btn" onClick={addQuestion}>+ Add Question</div>

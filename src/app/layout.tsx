@@ -1,5 +1,6 @@
 import './globals.scss'
 import './spinner.scss'
+import './mobile.scss'
 import type { Metadata } from 'next'
 import Wrapper from '@/Wrapper'
 import { Toaster } from 'react-hot-toast'

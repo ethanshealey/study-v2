@@ -15,55 +15,50 @@ type AddQuestionCardType = {
     question: Question,
     idx: number,
     onChange: Function,
-    autofillOptions: boolean
+    autofillOptions: boolean,
+    handleDeleteQuestionCard: Function
 }
 
-const AddQuestionCard = ({ question, idx, onChange, autofillOptions }: AddQuestionCardType) => {
-
-  const [ questionContent, setQuestionContent ] = useState<string>('')
-
-  const [ options, setOptions ] = useState<Option[]>([])
+const AddQuestionCard = ({ question, idx, onChange, autofillOptions, handleDeleteQuestionCard }: AddQuestionCardType) => {
 
   useEffect(() => {
-    const tempQ: Question = {
-      question: questionContent,
-      options: options
-    }
-    onChange(tempQ, idx)
-  }, [questionContent, options])
-
-  useEffect(() => {
-    if(!options.length) {
+    if(!question.options.length) {
       const firstOption = getBlankOption()
-      setOptions((_: any) => [ firstOption ])
+      onChange({ ...question, options: [ firstOption ] }, idx)
     }
   }, [])
 
   const handleOptionContentChange = (content: string, i: number) => {
-    const tempOptions = [ ...options ]
+    const tempOptions = [ ...question?.options ]
     tempOptions[i].content = content
-    setOptions((_: any) => [ ...tempOptions ])
+    onChange({ ...question, options: tempOptions }, idx)
   }
 
   const deleteOption = (i: number) => {
-    let tempOptions = [ ...options ]
+    let tempOptions = [ ...question?.options ]
     tempOptions = tempOptions.filter((o: Option, idx: number) => idx !== i)
-    setOptions((_: any) => [ ...tempOptions ])
+    onChange({ ...question, options: tempOptions }, idx)
   }
 
   const canDelete = (i: number) => {
-    return i !== 0 && options.length === 1
+    return i !== 0 && question.options.length === 1
   }
 
   const toggleCorrect = (i: number) => {
-    const tempOptions = [ ...options ]
+    const tempOptions = [ ...question?.options ]
     tempOptions[i].isCorrect = !tempOptions[i].isCorrect
-    setOptions((_: any) => [ ...tempOptions ])
+    onChange({ ...question, options: tempOptions }, idx)
   }
 
   const addOption = () => { 
     const newOption = getBlankOption()
-    setOptions((oldOptions: Option[]) => [ ...oldOptions, newOption ])
+    onChange({ ...question, options: [ ...question?.options, newOption ] }, idx)
+  }
+
+  const handleQuestionChange = (content: string) => {
+    let tempQ: Question = { ...question }
+    tempQ.question = content
+    onChange(tempQ, idx)
   }
 
   return (
@@ -71,19 +66,19 @@ const AddQuestionCard = ({ question, idx, onChange, autofillOptions }: AddQuesti
       <div className="question-card--header">
         <h3 className="question-card--index">{ idx + 1 }</h3>
         <div className='question-card--controls'>
-          <div className='question-card--control'>
+          <div className={`question-card--control`}  onClick={() => handleDeleteQuestionCard(idx)}>
             <FaTrashAlt />
           </div>
         </div>
       </div>
       <div className="question-card--content">
         <div className='question-card--content--left'>
-          <textarea placeholder='Enter your question (Can use markdown!)' onChange={(e) => setQuestionContent(e.target.value)} />
+          <textarea id={`textarea-${idx}`} placeholder='Enter your question (Can use markdown!)' value={question.question} onChange={(e) => handleQuestionChange(e.target.value)} />
           <div className='question-card--content--preview'>
             {
-              questionContent ? (
+              question?.question ? (
                 <Markdown
-                  children={questionContent}
+                  children={question?.question}
                   remarkPlugins={[remarkGfm]}
                   components={{
                     code(props) {
@@ -100,8 +95,21 @@ const AddQuestionCard = ({ question, idx, onChange, autofillOptions }: AddQuesti
         </div>
         <div className='question-card--content--right'>
           {
-            options.map((option: Option, i: number) => (
+            autofillOptions ? 
+            <OptionInput 
+              question={question}
+              key={`option-input-${idx}-${0}`}
+              option={question.options[0]} 
+              idx={0} 
+              handleOptionContentChange={handleOptionContentChange} 
+              deleteOption={deleteOption} 
+              canDelete={canDelete} 
+              toggleCorrect={toggleCorrect}
+              autofillOptions={autofillOptions}
+          /> : 
+            question?.options?.map((option: Option, i: number) => (
               <OptionInput 
+                question={question}
                 key={`option-input-${idx}-${i}`}
                 option={option} 
                 idx={i} 
@@ -111,7 +119,6 @@ const AddQuestionCard = ({ question, idx, onChange, autofillOptions }: AddQuesti
                 toggleCorrect={toggleCorrect}
                 autofillOptions={autofillOptions}
               />
-              // <input className='option-input' placeholder='Enter an option...' value={option.content} key={`option-input-${i}`} onChange={(e) => handleOptionContentChange(e.target.value, i)} />
             ))
           }
           { !autofillOptions && <div className='add-option' onClick={addOption}>+ Add an option</div> }

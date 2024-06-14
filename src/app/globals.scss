@@ -50,7 +50,7 @@ header {
   #header-right {
     margin-right: 25px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     width: 35%;
   }
@@ -131,8 +131,13 @@ header {
       z-index: 56;
       transition: .1s;
       opacity: 75%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       svg {
-        margin-bottom: -2px;
+        margin-bottom: 1.5px;
+        font-size: 12px;
+        margin-right: 5px;
       }
       &:hover {
         background-color: $background;
@@ -191,10 +196,11 @@ main {
     margin-top: 50px;
     padding: 25px;
     width: 90vw;
-    max-width: 900px;
+    max-width: 1500px;
     #sets {
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       h1 {
         font-size: 45px;
         font-weight: 900;
@@ -268,17 +274,18 @@ main {
 
 #set-list {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   margin-top: -30px;
   padding: 0;
+  align-items: stretch;
   .study-set {
+    flex: 1 0 21%;
     background-color: $foreground;
     border-radius: 10px;
-    width: calc(25% - 60px);
-    min-width: 150px;
     margin: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -329,6 +336,20 @@ main {
 #set-title {
   font-weight: 1000;
   font-size: 35px;
+  display: flex;
+  flex-direction: row;
+  #edit-icon {
+    margin-left: 15px;
+    opacity: 50%;
+    transition: .25s;
+    cursor: pointer;
+    svg {
+      margin-top: 5px;
+    }
+    &:hover {
+      opacity: 80%;
+    }
+  }
 }
 #set-created-by {
   font-weight: 100;
@@ -413,21 +434,22 @@ main {
   justify-content: center;
   align-items: center;
   .current-card {
-      background-color: $background;
-      height: 75vh;
-      width: 60vw;
-      max-width: 535px;
-      max-height: 600px;
-      border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: $text;
-      font-family: $font;
-      font-weight: 900;
-      font-size: 50px;
-      cursor: pointer;
+    white-space: pre-wrap;
+    background-color: $background;
+    height: 75vh;
+    width: 60vw;
+    max-width: 535px;
+    max-height: 600px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $text;
+    font-family: $font;
+    font-weight: 900;
+    font-size: 50px;
+    cursor: pointer;
   }
   .controls {
     width: 60vw;
@@ -479,39 +501,34 @@ main {
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-radius: 6px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  white-space: pre-wrap;
   cursor: pointer;
-  div {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 6px;
-      background: $foreground;
-      display: -ms-flexbox;
-      display: box;
-      display: flex;
-      -o-box-pack: center;
-      justify-content: center;
-      -o-box-align: center;
-      align-items: center;
-      -webkit-font-smoothing: antialiased;
-      color: $text;
-      font-family: $font;
-      font-weight: 900;
-      font-size: clamp(.5rem, .5rem, 2rem); 
-      display: flex;
-      flex-direction: column;
-      transition: .5s;
-      white-space: pre-wrap;
-      h1 {
-          margin: 0;
-      }
-      p {
-          margin: 0;
-          font-weight: 100;
-          font-style: italic;
-      }
+  .front, .back {
+    overflow-y: scroll;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 6px;
+    background: $foreground;
+    display: flex;
+    white-space: pre-wrap;
+    justify-content: center;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+    color: $text;
+    font-family: $font;
+    font-weight: 900;
+    font-size: clamp(.5rem, .5rem, 2rem); 
+    display: flex;
+    flex-direction: column;
+    transition: .5s;
+    white-space: pre-wrap;
+    font-size: 15px;
+    p {
+      font-weight: 600;
+    }
   }
 }
 .card .back {
@@ -551,9 +568,11 @@ main {
     width: 60vw;
     max-width: 500px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    white-space: pre-wrap;
     h1 {
       font-weight: 900;
     }
@@ -584,7 +603,7 @@ main {
         label {
           padding: 10px;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
           cursor: pointer;
           text-align: center;
@@ -856,6 +875,10 @@ main {
             color: $red;
           }
         }
+        
+        .no-delete {
+          opacity: 50%;
+        }
       }
     }
     .question-card--content {
@@ -875,6 +898,7 @@ main {
           color: $text;
           height: 200px;
           padding: 10px;
+          // font-family: $font;
         }
         .question-card--content--preview {
           margin-top: 15px;
@@ -979,7 +1003,7 @@ main {
 }
 
 #add-question-btn {
-  border: 2.5px solid $text;
+  border: 1px solid $text;
   padding: 10px;
   text-align: center;
   border-radius: 5px;
@@ -987,10 +1011,56 @@ main {
   opacity: 50%;
   cursor: pointer;
   transition: .25s;
-  font-weight: 800;
+  font-weight: 300;
   background-color: transparent;
   margin-bottom: 50px;
   &:hover {
     opacity: 35%;
+  }
+}
+
+#no-search-results {
+  opacity: 50%;
+  font-weight: 300;
+}
+
+#profile-info {
+  background-color: $foreground;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  #profile-info-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: $text;
+    border: 2px solid $text;
+  }
+  #profile-info-username {
+    margin-left: 15px;
+    font-size: 25px !important;
+    margin-right: 20px;
+  }
+  .profile-stat {
+    background-color: $background;
+    padding: 8px;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+}
+
+.search-result-list {
+  margin-top: 15px !important;
+  margin-left: 0 !important;
+  .study-set {
+    flex-basis: 100% !important;
+    margin-left: 0 !important;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Option from '@/types/Option'
 
 type SingleChoiceOptionsType = {
@@ -14,8 +14,11 @@ const SingleChoiceOptions = ({ options, onSubmitAnswer, isCorrect, showCorrectAn
 
     const [ picked, setPicked ] = useState<number>(-1)
 
+    useEffect(() => {
+        setPicked(-1)
+    }, [options])
+
     const pickOption = (idx: number) => {
-        console.log('running pickOption')
         setPicked(idx)
     }
 

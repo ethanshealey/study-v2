@@ -1,10 +1,11 @@
 import Question from "./Question"
 
 type StudySet = {
-    id: string,
+    id?: string,
     title: string,
     createdBy: string,
     createdByEmail: string,
+    public: boolean,
     items: Question[],
     autofillOptions: boolean
 }
