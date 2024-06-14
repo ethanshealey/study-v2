@@ -27,5 +27,12 @@
     .option-btn {
         flex-basis: 100% !important;
     }
-    
+    #set-list {
+        display: block !important;
+        max-width: 100vw !important;
+        .study-set {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+    }
 }
