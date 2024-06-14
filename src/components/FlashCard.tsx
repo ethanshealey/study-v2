@@ -8,10 +8,11 @@ import CodeBlock from './CodeBlock'
 type FlashCardType = {
     card: Question | undefined,
     flip: boolean,
-    setFlip: Function
+    setFlip: Function,
+    autofilledOption: Option | undefined
 }
 
-const FlashCard = ({ card, flip, setFlip }: FlashCardType) => {
+const FlashCard = ({ card, flip, setFlip, autofilledOption }: FlashCardType) => {
   return (
     <div className="current-card">
         <div className={`card ${flip ? 'flipped' : ''}`} onClick={() => setFlip((p: boolean) => !p)}>
@@ -29,11 +30,12 @@ const FlashCard = ({ card, flip, setFlip }: FlashCardType) => {
             </div>
             <div className="back">
               {
+                autofilledOption ? (<h1 key={`flash-card-${0}`}>{ autofilledOption.content }</h1>) : (
                 card?.options.map((option: Option, idx: number) => {                    
                     return option.isCorrect && (
                         <h1 key={`flash-card-${idx}`}>{ option.content }</h1>
                     )
-                })
+                }))
               }
             </div>
         </div>

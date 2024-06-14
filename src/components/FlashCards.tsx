@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import FlashCard from './FlashCard'
 import { VscDebugRestart } from 'react-icons/vsc'
 import sleep from '@/helpers/sleep'
+import Option from '@/types/Option'
+import shuffle from '@/helpers/shuffle'
 
 type FlashCardsType = {
   content: StudySet | undefined,
@@ -12,6 +14,21 @@ const FlashCards = ({ content }: FlashCardsType) => {
 
   const [ cardIndex, setCardIndex ] = useState<number>(0)
   const [ flip, setFlip ] = useState<boolean>(false)
+  const [ autofilledOption, setAutofilledOption ] = useState<Option>()
+
+  useEffect(() => {
+    if(content?.autofillOptions) {
+      // const all_options: Option[] = content.items.map((i: Question) => i.options).flat()
+      // for(let i = 0; i < content.items.length; i++) {
+      //   const correct_answer = content?.items[i]?.options[0]
+      //   correct_answer.isCorrect = true
+      //   let answers: Option[] = [ correct_answer ]
+      //   console.log(answers)
+      //   autofilledOptions.push(shuffle(answers))
+      // }
+      setAutofilledOption(content.items[0].options[0])
+    }
+  }, [])
   
   const getCurrentCard = () => content?.items[cardIndex]
 
@@ -33,7 +50,7 @@ const FlashCards = ({ content }: FlashCardsType) => {
 
   return (
     <div id="card-stack-wrapper">
-      <FlashCard card={getCurrentCard()} flip={flip} setFlip={setFlip} />
+      <FlashCard card={getCurrentCard()} flip={flip} setFlip={setFlip} autofilledOption={autofilledOption} />
       <div className='progress'>
           <progress value={cardIndex + 1} max={content?.items.length} />
       </div>

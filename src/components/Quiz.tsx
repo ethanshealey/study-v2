@@ -38,7 +38,8 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
         let answers: Option[] = [ correct_answer ]
         answers.push(...getThreeRandomOptions(all_options, correct_answer))
         console.log(answers)
-        autofilledOptions.push(shuffle(answers))
+        // autofilledOptions.push(shuffle(answers))
+        setAutofilledOptions([ ...shuffle(answers) ])
       }
     }
   }, [])
