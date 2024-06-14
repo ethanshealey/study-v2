@@ -70,7 +70,7 @@ const page = ({ params }: SetPageType) => {
             <Tooltip anchorSelect=".edit-btn-msg" place="top" style={{ zIndex: 999 }}>
                   Edit this set
             </Tooltip>
-            <h3 id="set-title">{ studySet?.title } { user.email === studySet?.createdByEmail ? <div id="edit-icon" className="edit-btn-msg" onClick={editDeck}><FaPencilAlt /></div> : <></> }</h3>
+            <h3 id="set-title">{ studySet?.title } { user?.email === studySet?.createdByEmail ? <div id="edit-icon" className="edit-btn-msg" onClick={editDeck}><FaPencilAlt /></div> : <></> }</h3>
             <div id="set-created-by">Created by &nbsp;<UserCard username={studySet?.createdBy ?? ''} email={studySet?.createdByEmail ?? ''} /></div>
             <div id="set-content-wrapper">
               <div id="study-type-switch">
