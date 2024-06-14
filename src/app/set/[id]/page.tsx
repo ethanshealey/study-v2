@@ -41,7 +41,6 @@ const page = ({ params }: SetPageType) => {
     const data = await res.json()
     if(data.length > 0) {
       const deck: StudySet = data[0]
-      console.log(deck)
       deck.items = shuffle(deck.items)
       setStudySet((_: any) => deck)
     }

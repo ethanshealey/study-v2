@@ -15,7 +15,6 @@ const page = () => {
     const [ userStudySets, setUserStudySets ] = useState<StudySet[]>([])
 
     useEffect(() => {
-        console.log(user)
         if(user) {
             getUserSetCount()
             getUserSets()

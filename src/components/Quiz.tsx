@@ -37,9 +37,7 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
         correct_answer.isCorrect = true
         let answers: Option[] = [ correct_answer ]
         answers.push(...getThreeRandomOptions(all_options, correct_answer))
-        console.log(answers)
-        // autofilledOptions.push(shuffle(answers))
-        setAutofilledOptions([ ...shuffle(answers) ])
+        autofilledOptions.push(shuffle(answers))
       }
     }
   }, [])
@@ -121,7 +119,7 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
               numberOfPieces={showConfetti ? 200 : 0}
             />
             <h1>{ generateResponse() }</h1>
-            <h1 id="result-percent">{(correctAnswerCount/(content?.items.length ?? 1)) * 100}%</h1>
+            <h1 id="result-percent">{Math.floor((correctAnswerCount/(content?.items.length ?? 1)) * 100)}%</h1>
             <button id="result-try-again-btn" onClick={restart}>Try Again</button>
           </div>
         ) : (

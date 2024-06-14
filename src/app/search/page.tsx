@@ -49,7 +49,6 @@ const page = () => {
       setSearchResults(data.results)
     }
     setIsLoadingStudySets(false)
-    console.log(data)
   }
 
   return (

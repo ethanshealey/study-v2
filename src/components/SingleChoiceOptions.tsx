@@ -58,7 +58,7 @@ const SingleChoiceOptions = ({ options, onSubmitAnswer, isCorrect, showCorrectAn
         <div id="single-choice">
             <div id="options">
                 {
-                    options?.map((option: Option, idx: number) => (
+                    options && options?.map((option: Option, idx: number) => (
                         <div className={`option-btn ${getClassName(idx)}`} key={`option-${idx}`}>
                             <input type="radio" id={`option-${idx}`} name="options" className='option-input' />
                             <label htmlFor={`option-${idx}`} onClick={() => pickOption(idx)} >

@@ -18,14 +18,6 @@ const FlashCards = ({ content }: FlashCardsType) => {
 
   useEffect(() => {
     if(content?.autofillOptions) {
-      // const all_options: Option[] = content.items.map((i: Question) => i.options).flat()
-      // for(let i = 0; i < content.items.length; i++) {
-      //   const correct_answer = content?.items[i]?.options[0]
-      //   correct_answer.isCorrect = true
-      //   let answers: Option[] = [ correct_answer ]
-      //   console.log(answers)
-      //   autofilledOptions.push(shuffle(answers))
-      // }
       setAutofilledOption(content.items[0].options[0])
     }
   }, [])

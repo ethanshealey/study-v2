@@ -13,9 +13,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const access_token = body?.user?.stsTokenManager?.accessToken
 
-    console.log(access_token)
-
-
     const userVerification = await verifyAccessToken(access_token)
 
     const q = body?.query
@@ -64,8 +61,6 @@ export async function POST(request: NextRequest) {
 
     const resultSet: any[] = []
 
-    console.log(docs, results)
-
     results.forEach((res: any) => {
         resultSet.push(docs.filter((d) => d.id === res?.ref)[0])
     })
@@ -73,8 +68,6 @@ export async function POST(request: NextRequest) {
     let message = ''
     if(resultSet.length > 0) message = 'Successfully found ' + resultSet.length + ' items'
     else message = 'No search results found for \'' + q + '\''
-
-    console.log(resultSet)
 
     return NextResponse.json({ results: resultSet, message: message }, { status: 200 })
 
