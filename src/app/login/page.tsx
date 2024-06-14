@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import ErrorCodes from '@/constants/ErrorCodes'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { toast } from 'react-hot-toast'
+import toastTheme from '@/helpers/toastTheme'
 
 const Login = () => {
 
@@ -16,10 +18,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password).then((res) => {
       router.push('/')
     }).catch((err) => {
-      console.error(err)
-      if(err.message === "Firebase: Error (auth/invalid-email).") {
-        console.error(ErrorCodes.INVALID_EMAIL)
-      }
+      if(/auth\/invalid-*/g.test(err.code)) toast.error("Invalid email/password", toastTheme)
     })
   }
 
