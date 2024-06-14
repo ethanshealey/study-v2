@@ -191,7 +191,8 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-content: c;
+  align-content: center;
+  height: auto;
   #content {
     margin-top: 50px;
     padding: 25px;
@@ -602,6 +603,7 @@ main {
         font-family: $font;
         font-weight: 700;
         flex-basis: calc(50% - 10px);
+        flex-basis: 100%;
         margin-bottom: 20px;
         transition: .25s;
         outline: $foreground solid 2px;
@@ -631,8 +633,10 @@ main {
 }
 
 .dot {
-  height: 8px;
-  width: 8px;
+  min-height: 8px !important;
+  max-height: 8px !important;
+  min-width: 8px !important;
+  max-width: 8px !important;
   border: 2.5px solid $text;
   background: $text;
   border-radius: 50%;
@@ -655,8 +659,10 @@ main {
 }
 
 .square {
-  height: 8px;
-  width: 8px;
+  min-height: 8px !important;
+  max-height: 8px !important;
+  min-width: 8px !important;
+  max-width: 8px !important;
   background: $text;
   border-radius: 2.5px;
   border: 2px solid $text;

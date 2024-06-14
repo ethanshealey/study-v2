@@ -26,7 +26,9 @@ const page = ({ params }: SetPageType) => {
   const [ isLoadingStudySet, setIsLoadingStudySet ] = useState<boolean>(true)
 
   useEffect(() => {
-    if(type === 'cards' || type === 'quiz') setStudyType(type)
+    if(!studySet?.allowFlash) setStudyType('quiz')
+    else if(!studySet?.allowQuiz) setStudyType('cards')
+    else if(type === 'cards' || type === 'quiz') setStudyType(type)
     else setStudyType('cards')
     getStudySet()
   }, [user])
@@ -72,14 +74,16 @@ const page = ({ params }: SetPageType) => {
             <h3 id="set-title">{ studySet?.title } { user?.email === studySet?.createdByEmail ? <div id="edit-icon" className="edit-btn-msg" onClick={editDeck}><FaPencilAlt /></div> : <></> }</h3>
             <div id="set-created-by">Created by &nbsp;<UserCard username={studySet?.createdBy ?? ''} email={studySet?.createdByEmail ?? ''} /></div>
             <div id="set-content-wrapper">
+              { (studySet?.allowFlash && studySet?.allowQuiz) &&
               <div id="study-type-switch">
                 <div className={`type-radio type-radio--cards ${ studyType === 'cards' ? 'type-radio-active' : '' }`} onClick={() => setStudyType('cards')}>
                   Flash Cards
-                </div>
+                </div> 
                 <div className={`type-radio type-radio--quiz ${ studyType === 'quiz' ? 'type-radio-active' : '' }`} onClick={() => setStudyType('quiz')}>
                   Quiz
                 </div>
               </div>
+              }
               {
                 studyType === 'cards' ? (
                   <FlashCards content={studySet} />

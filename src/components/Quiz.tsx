@@ -55,19 +55,44 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
   }
 
   const handleSubmit = (picked: number[]) => {
-    const correct_answer_count = content?.items[questionIndex]?.options?.filter((o: Option) => o.isCorrect).length
-    const picked_answers = content?.items[questionIndex]?.options?.filter((o: Option, idx: number) => picked.includes(idx))
+    // const correct_answer_count = content?.items[questionIndex]?.options?.filter((o: Option) => o.isCorrect).length
+    // const picked_answers = content?.items[questionIndex]?.options?.filter((o: Option, idx: number) => picked.includes(idx))
 
-    const allAnswersAreCorrect = (ans: Option[]) => ans.every((o: Option) => o.isCorrect)
+    // const allAnswersAreCorrect = (ans: Option[]) => ans.every((o: Option) => o.isCorrect)
 
-    if(allAnswersAreCorrect(picked_answers ?? []) && picked_answers?.length === correct_answer_count) {
-      setCorrectAnswerCount(grade => grade + 1)
-      setIsCorrect(true)
-    }
+    // console.log(picked, picked_answers, picked_answers?.length, correct_answer_count, allAnswersAreCorrect(picked_answers ?? []))
+
+    // if(allAnswersAreCorrect(picked_answers ?? []) && picked_answers?.length === correct_answer_count) {
+    //   setCorrectAnswerCount(grade => grade + 1)
+    //   console.log('Correct! ' + correctAnswerCount)
+    //   setIsCorrect(true)
+    // }
+    // else
+    //   setIsCorrect(false)
+    // setShowCorrectAnswer(true)
+
+    // if(questionIndex+1 === content?.items?.length) setIsDone(true)
+
+    let all_options = []
+    if(content?.autofillOptions) 
+      all_options = autofilledOptions[questionIndex]
     else
-      setIsCorrect(false)
-    setShowCorrectAnswer(true)
+      all_options = content?.items[questionIndex]?.options ?? []
 
+    const all_picked_are_correct = picked.every((p: number) => all_options[p].isCorrect) && (picked.length === all_options.filter((o: Option) => o.isCorrect).length)
+
+    console.log(all_picked_are_correct)
+
+    if(all_picked_are_correct) {
+      setCorrectAnswerCount(grade => grade+1)
+      setIsCorrect(true)
+      console.log('idk should work')
+    }
+    else {
+      setIsCorrect(false)
+    }
+    setShowCorrectAnswer(true)
+    
     if(questionIndex+1 === content?.items?.length) setIsDone(true)
 
   }

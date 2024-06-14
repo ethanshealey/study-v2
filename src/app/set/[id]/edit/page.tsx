@@ -25,6 +25,8 @@ const EditPage = ({ params } : EditPageType) => {
 
     const [ isPrivate, setIsPrivate ] = useState<boolean>(false)
     const [ autofillOptions, setAutofillOptions ] = useState<boolean>(false)
+    const [ allowQuiz, setAllowQuiz ] = useState<boolean>(true)
+    const [ allowFlash, setAllowFlash ] = useState<boolean>(true)
 
     useEffect(() => {
         if(!user) return router.push('/')
@@ -82,6 +84,8 @@ const EditPage = ({ params } : EditPageType) => {
                 questions: questions,
                 isPrivate: isPrivate,
                 autofillOptions: autofillOptions,
+                allowQuiz: allowQuiz,
+                allowFlash: allowFlash,
                 user: { ...auth.currentUser, username: user.username }
             })
         })
@@ -104,6 +108,8 @@ const EditPage = ({ params } : EditPageType) => {
                         <div id="create-options">
                             <div className="create-option-item" onClick={() => setIsPrivate(!isPrivate)}>{ isPrivate ? <RiCheckboxCircleFill /> : <RiCheckboxBlankCircleLine /> }&nbsp;Private</div>
                             <div className="create-option-item" onClick={() => setAutofillOptions(!autofillOptions)}>{ autofillOptions ? <RiCheckboxCircleFill /> : <RiCheckboxBlankCircleLine /> }&nbsp;Autofill Answers from other Questions</div>
+                            <div className="create-option-item" onClick={() => setAllowQuiz(!allowQuiz)}>{ allowQuiz ? <RiCheckboxCircleFill /> : <RiCheckboxBlankCircleLine /> }&nbsp;Allow Quiz</div>
+                            <div className="create-option-item" onClick={() => setAllowFlash(!allowFlash)}>{ allowFlash ? <RiCheckboxCircleFill /> : <RiCheckboxBlankCircleLine /> }&nbsp;Allow Flash Cards</div>
                         </div>
                         {
                             questions.map((question: Question, idx: number) => (

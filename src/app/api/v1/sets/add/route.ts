@@ -19,7 +19,9 @@ export async function POST(request: NextRequest) {
             createdByEmail: userVerification.email,
             public: !body.isPrivate,
             items: body.questions,
-            autofillOptions: body.autofillOptions
+            autofillOptions: body.autofillOptions,
+            allowQuiz: body.allowQuiz,
+            allowFlash: body.allowFlash
         }
 
         const ref = addDoc(collection(db, 'StudySet'), newStudySet)

@@ -7,7 +7,9 @@ type StudySet = {
     createdByEmail: string,
     public: boolean,
     items: Question[],
-    autofillOptions: boolean
+    autofillOptions: boolean,
+    allowFlash: boolean,
+    allowQuiz: boolean
 }
 
 export default StudySet
