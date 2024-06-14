@@ -27,6 +27,7 @@
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
+    "@types/lunr": "^2.3.7",
     "@types/markdown-it": "^14.0.1",
     "@types/node": "latest",
     "@types/react": "latest",
