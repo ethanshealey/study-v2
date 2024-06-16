@@ -9,6 +9,9 @@ import { Toaster } from 'react-hot-toast'
 export const metadata: Metadata = {
   title: 'Study | ethanshealey.com',
   description: 'Study all your subjects in one handy place!',
+  icons: [
+    'flash-cards-icon.png'
+  ]
 }
 
 export default function RootLayout({

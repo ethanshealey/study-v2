@@ -55,23 +55,6 @@ const Quiz = ({ content, shuffleDeck }: QuizType) => {
   }
 
   const handleSubmit = (picked: number[]) => {
-    // const correct_answer_count = content?.items[questionIndex]?.options?.filter((o: Option) => o.isCorrect).length
-    // const picked_answers = content?.items[questionIndex]?.options?.filter((o: Option, idx: number) => picked.includes(idx))
-
-    // const allAnswersAreCorrect = (ans: Option[]) => ans.every((o: Option) => o.isCorrect)
-
-    // console.log(picked, picked_answers, picked_answers?.length, correct_answer_count, allAnswersAreCorrect(picked_answers ?? []))
-
-    // if(allAnswersAreCorrect(picked_answers ?? []) && picked_answers?.length === correct_answer_count) {
-    //   setCorrectAnswerCount(grade => grade + 1)
-    //   console.log('Correct! ' + correctAnswerCount)
-    //   setIsCorrect(true)
-    // }
-    // else
-    //   setIsCorrect(false)
-    // setShowCorrectAnswer(true)
-
-    // if(questionIndex+1 === content?.items?.length) setIsDone(true)
 
     let all_options = []
     if(content?.autofillOptions) 

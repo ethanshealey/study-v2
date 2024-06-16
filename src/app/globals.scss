@@ -582,6 +582,9 @@ main {
     h1 {
       font-weight: 900;
     }
+    pre {
+      max-width: 100%;
+    }
   }
   #quiz-options {
     display: flex;
@@ -602,8 +605,9 @@ main {
         border-radius: 5px;
         font-family: $font;
         font-weight: 700;
-        flex-basis: calc(50% - 10px);
-        flex-basis: 100%;
+        // flex-basis: calc(50% - 10px);
+        min-width: 48%;
+        flex-basis: auto;
         margin-bottom: 20px;
         transition: .25s;
         outline: $foreground solid 2px;

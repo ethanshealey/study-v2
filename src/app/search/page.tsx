@@ -40,6 +40,8 @@ const page = () => {
     })
     const data = await res.json()
 
+    console.log(data)
+
     if(data?.results.length === 0) {
       setSearchErrorMessage(data?.message)
       setSearchResults([])

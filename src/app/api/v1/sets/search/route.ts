@@ -65,6 +65,9 @@ export async function POST(request: NextRequest) {
         resultSet.push(docs.filter((d) => d.id === res?.ref)[0])
     })
 
+    for(let r of resultSet) 
+        r!.id  = r?.actual
+
     let message = ''
     if(resultSet.length > 0) message = 'Successfully found ' + resultSet.length + ' items'
     else message = 'No search results found for \'' + q + '\''

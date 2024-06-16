@@ -92,6 +92,7 @@ const EditPage = ({ params } : EditPageType) => {
         const data = await res.json()
 
         router.push(`/set/${params.id}`)
+        location.reload()
     }
         
     return (

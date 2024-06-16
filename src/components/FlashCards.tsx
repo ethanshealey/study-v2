@@ -16,11 +16,12 @@ const FlashCards = ({ content }: FlashCardsType) => {
   const [ flip, setFlip ] = useState<boolean>(false)
   const [ autofilledOption, setAutofilledOption ] = useState<Option>()
 
-  useEffect(() => {
-    if(content?.autofillOptions) {
-      setAutofilledOption(content.items[0].options[0])
-    }
-  }, [])
+  // useEffect(() => {
+  //   if(content?.autofillOptions) {
+  //     console.log(content)
+  //     setAutofilledOption(content.items[0].options[0])
+  //   }
+  // }, [])
   
   const getCurrentCard = () => content?.items[cardIndex]
 
