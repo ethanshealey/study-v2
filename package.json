@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.0.0",
+    "antd": "^5.19.4",
     "firebase": "^10.10.0",
     "firebase-admin": "^12.1.0",
     "lunr": "^2.3.9",
     "markdown-it": "^14.1.0",
-    "next": "latest",
+    "next": "^13.4.7",
     "react": "latest",
     "react-confetti": "^6.1.0",
     "react-dom": "latest",

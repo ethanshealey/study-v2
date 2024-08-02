@@ -825,20 +825,47 @@ main {
     border-radius: 5px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     padding: 15px;
-    .create-option-item {
-      background-color: $background;
-      color: $text;
+    .create-options-list {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 90%;
+      .create-option-item {
+        background-color: $background;
+        color: $text;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        padding: 10px;
+        border-radius: 10px;
+        font-family: $font;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
+    }
+    .create-auto-upload {
       display: flex;
       justify-content: center;
       align-items: center;
-      border: none;
-      padding: 10px;
-      border-radius: 10px;
-      font-family: $font;
-      cursor: pointer;
-      -webkit-user-select: none; /* Safari */
-      -ms-user-select: none; /* IE 10 and IE 11 */
-      user-select: none; /* Standard syntax */
+      width: 10%;
+      .create-auto-upload-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $background;
+        color: $text;
+        border: none;
+        padding: 10px;
+        border-radius: 10px;
+        font-family: $font;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
     }
   }
 
@@ -1077,5 +1104,41 @@ main {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
+  }
+}
+
+.modal-upload-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  &::file-selector-button {
+    border: none;
+    background-color: $text;
+    color: $background;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: $font;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+}
+
+.modal-file-upload-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: $text;
+  background-color: $background;
+  font-family: $font;
+  font-weight: 700;
+  cursor: pointer;
+  &:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
   }
 }
