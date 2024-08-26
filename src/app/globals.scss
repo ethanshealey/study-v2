@@ -600,18 +600,27 @@ main {
       justify-content: space-between;
       .option-btn {
         background-color: $foreground;
-        border: none;
-        color: $text;
         border-radius: 5px;
-        font-family: $font;
-        font-weight: 700;
-        // flex-basis: calc(50% - 10px);
-        min-width: 48%;
-        flex-basis: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: start !important;
+        width: 100%;
         margin-bottom: 20px;
-        transition: .25s;
+        // background-color: $foreground;
+        // border: none;
+        // color: $text;
+        // border-radius: 5px;
+        // font-family: $font;
+        // font-weight: 700;
+        // // flex-basis: calc(50% - 10px);
+        // min-width: 48%;
+        // flex-basis: auto;
+        // margin-bottom: 20px;
+        // transition: .25s;
         outline: $foreground solid 2px;
         label {
+          text-align: start !important;
           padding: 10px;
           display: flex;
           justify-content: flex-start;

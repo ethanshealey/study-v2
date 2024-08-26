@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Option from '@/types/Option'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import CodeBlock from './CodeBlock'
 
 type MultipleChoiceOptionsType = {
     options: Option[] | undefined,
@@ -59,11 +62,21 @@ const MultipleChoiceOptions = ({ options, onSubmitAnswer, isCorrect, showCorrect
             <div id="options">
                 {
                     options && options?.map((option: Option, idx: number) => (
-                        <div className={`option-btn ${getClassName(idx)}`} key={`option-${idx}`}>
+                        <div className={`option-btn ${getClassName(idx)}`} key={`option-${idx}`} onClick={() => pickOption(idx)}>
                             <input type="checkbox" id={`option-${idx}`} name="options" className='option-input' />
-                            <label htmlFor={`option-${idx}`} onClick={() => pickOption(idx)} >
+                            <label htmlFor={`option-${idx}`} >
                                 <div className={`square ${ getClassNameDot(idx) }`}></div>
-                                <span>{ option.content }</span>
+                                <span>
+                                    <Markdown
+                                        children={option.content}
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                            code(props) {
+                                            return <CodeBlock children={props.children} className={props.className} node={props.node} />
+                                            }
+                                        }}
+                                    />
+                                </span>
                             </label>
                         </div>
                     ))

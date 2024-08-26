@@ -113,7 +113,7 @@ const page = () => {
             setIsModalOpen(false)
         }
         catch(e) {
-            console.log('bad file')
+            console.log('bad file', e)
             toast.error("Invalid json file provided", toastTheme)
         }
 
