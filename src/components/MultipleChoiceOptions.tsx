@@ -62,11 +62,11 @@ const MultipleChoiceOptions = ({ options, onSubmitAnswer, isCorrect, showCorrect
             <div id="options">
                 {
                     options && options?.map((option: Option, idx: number) => (
-                        <div className={`option-btn ${getClassName(idx)}`} key={`option-${idx}`} onClick={() => pickOption(idx)}>
+                        <div className={`option-btn ${getClassName(idx)}`} key={`option-${idx}`} >
                             <input type="checkbox" id={`option-${idx}`} name="options" className='option-input' />
                             <label htmlFor={`option-${idx}`} >
                                 <div className={`square ${ getClassNameDot(idx) }`}></div>
-                                <span>
+                                <span onClick={() => pickOption(idx)}>
                                     <Markdown
                                         children={option.content}
                                         remarkPlugins={[remarkGfm]}
